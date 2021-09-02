@@ -13971,10 +13971,10 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Sentiment-Analysis">Sentiment Analysis<a class="anchor-link" href="#Sentiment-Analysis">&#182;</a></h1><p>Nowadays, companies want to understand what their customers think of their products/services. For this, it uses the Natural Language Processing (<strong>NLP</strong>) technique called sentiment analysis. In this approach, textual information can be qualified with reasonable precision, in which texts are generally classified as positive, neutral or negative.</p>
-<p>In this notebook we will show that it is possible to achieve, with a few steps, a sentiment analysis of a given text. The objective is to understand the initial steps to deal with text manipulation and how to apply them in a ML algorithm. This notebook will have Twitter and Reddit comments as a database. In this project, we train our machine algorithms with twitter data and try to classify the reddit texts. These database are public and can be found in the link below.</p>
+<h1 id="Sentiment-Analysis">Sentiment Analysis<a class="anchor-link" href="#Sentiment-Analysis">&#182;</a></h1><p>People usually post on social media what they think about a particular subject, service, product and so on. Therefore, it is in the interest of companies to want to understand what their customers think of their products, services, the next candidate for the presidency, among others. To identify the opinion expressed in the text, it is common to use a Natural Language Processing (<strong>NLP</strong>) technique called sentiment analysis. In this approach, textual information can be qualified with reasonable precision, where texts are generally classified as positive, neutral or negative.</p>
+<p>In this notebook we will show that it is possible to carry out, in a few steps, an analysis of the sentiment of a given text. The objective is to present the initial steps to deal with text manipulation and how to apply them in an ML algorithm. We will use data collected from Twitter and Reddit. The main idea is to verify the possibility of classifying Reddit's comments correctly, given that the model was trained by text coming from Twitter, knowing that there is a similarity in the standard posts of these two tools. These database are public and can be found in the link below.</p>
 <p><a href="https://www.kaggle.com/cosmos98/twitter-and-reddit-sentimental-analysis-dataset?select=Reddit_Data.csv">Tweet e Reddit</a></p>
-<h1 id="Initially-we-are-going-to-import-the-necessary-libraries.">Initially we are going to import the necessary libraries.<a class="anchor-link" href="#Initially-we-are-going-to-import-the-necessary-libraries.">&#182;</a></h1>
+<h1 id="Import-required-libraries.">Import required libraries.<a class="anchor-link" href="#Import-required-libraries.">&#182;</a></h1>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -14008,9 +14008,9 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Exploratory-analysis">Exploratory analysis<a class="anchor-link" href="#Exploratory-analysis">&#182;</a></h1><h1 id="Twitter">Twitter<a class="anchor-link" href="#Twitter">&#182;</a></h1><p>Let's start analyzing the twitter dataset, doing all the pre-processing, and sorting. Later, we will repeat the same procedure for the Reddit database. And finally, we will carry out the entire process with the two bases together.</p>
+<h1 id="Exploratory-analysis">Exploratory analysis<a class="anchor-link" href="#Exploratory-analysis">&#182;</a></h1><h1 id="Twitter">Twitter<a class="anchor-link" href="#Twitter">&#182;</a></h1><p>Let's start by performing an exploratory analysis on the Twitter database. Then we will carry out the same process for the Reddit database. The idea is to identify the content, check how the data is distributed among others.</p>
 <ul>
-<li>The Twitter dataset contains 162980 records, where 72250 records are positive text, 55213 are neutral text, and 35510 are negative (unbalanced).</li>
+<li>The Twitter dataset contains 162980 records, where 72250 records are positive text, 55213 are neutral text, and 35510 are negative. Therefore, this database is considered as unbalanced.</li>
 <li>In the attribute category of our database, the value 1 means the text is positive, 0 means it is neutral and -1 means it is positive.</li>
 </ul>
 
@@ -14105,7 +14105,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="The-clean_text-attribute-presents-the-twitter-content,-but-this-text-has-not-yet-been-pre-processed.-So-we-will-change-the-attribute-name-to-text.-In-the-database-there-is-an-unfilled-record,-which-we-will-delete.">The clean_text attribute presents the twitter content, but this text has not yet been pre-processed. So we will change the attribute name to text. In the database there is an unfilled record, which we will delete.<a class="anchor-link" href="#The-clean_text-attribute-presents-the-twitter-content,-but-this-text-has-not-yet-been-pre-processed.-So-we-will-change-the-attribute-name-to-text.-In-the-database-there-is-an-unfilled-record,-which-we-will-delete.">&#182;</a></h3>
+<h3 id="The-clean_text-attribute-presents-the-twitter-content,-but-this-text-has-not-yet-been-pre-processed.-So-we-will-change-the-attribute-name-to-text.-Also,-the-database-there-is-an-unfilled-record,-which-we-will-delete.">The clean_text attribute presents the twitter content, but this text has not yet been pre-processed. So we will change the attribute name to text. Also, the database there is an unfilled record, which we will delete.<a class="anchor-link" href="#The-clean_text-attribute-presents-the-twitter-content,-but-this-text-has-not-yet-been-pre-processed.-So-we-will-change-the-attribute-name-to-text.-Also,-the-database-there-is-an-unfilled-record,-which-we-will-delete.">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14179,7 +14179,7 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="As-mentioned-before,-the-database-is-unbalanced-with-the-smallest-number-of-records-in-the-negative-category.">As mentioned before, the database is unbalanced with the smallest number of records in the negative category.<a class="anchor-link" href="#As-mentioned-before,-the-database-is-unbalanced-with-the-smallest-number-of-records-in-the-negative-category.">&#182;</a></h3>
+<h3 id="As-mentioned-before,-the-database-is-unbalanced-with-the-smallest-number-of-records-in-the-negative-category.-The-plot-below-shows-how-the-texts-are-distributed.">As mentioned before, the database is unbalanced with the smallest number of records in the negative category. The plot below shows how the texts are distributed.<a class="anchor-link" href="#As-mentioned-before,-the-database-is-unbalanced-with-the-smallest-number-of-records-in-the-negative-category.-The-plot-below-shows-how-the-texts-are-distributed.">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14237,7 +14237,7 @@ dtype: int64</pre>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Through-the-graph-below,-we-can-see-that-there-is-no-significant-difference-between-the-average-amount-of-characters-used-for-positive-and-negative-texts.-However,-it-was-possible-to-notice-that-the-neutral-texts-on-average-contain-a-much-smaller-amount-of-characters-compared-to-the-other-categories.">Through the graph below, we can see that there is no significant difference between the average amount of characters used for positive and negative texts. However, it was possible to notice that the neutral texts on average contain a much smaller amount of characters compared to the other categories.<a class="anchor-link" href="#Through-the-graph-below,-we-can-see-that-there-is-no-significant-difference-between-the-average-amount-of-characters-used-for-positive-and-negative-texts.-However,-it-was-possible-to-notice-that-the-neutral-texts-on-average-contain-a-much-smaller-amount-of-characters-compared-to-the-other-categories.">&#182;</a></h3>
+<h3 id="Through-the-plot-below,-we-can-see-that-there-is-no-significant-difference-between-the-average-amount-of-characters-used-for-positive-and-negative-texts.-However,-it-was-possible-to-notice-that-the-neutral-texts-on-average-contain-a-much-smaller-amount-of-characters-compared-to-the-other-categories.">Through the plot below, we can see that there is no significant difference between the average amount of characters used for positive and negative texts. However, it was possible to notice that the neutral texts on average contain a much smaller amount of characters compared to the other categories.<a class="anchor-link" href="#Through-the-plot-below,-we-can-see-that-there-is-no-significant-difference-between-the-average-amount-of-characters-used-for-positive-and-negative-texts.-However,-it-was-possible-to-notice-that-the-neutral-texts-on-average-contain-a-much-smaller-amount-of-characters-compared-to-the-other-categories.">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14294,7 +14294,7 @@ dtype: int64</pre>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Reddit">Reddit<a class="anchor-link" href="#Reddit">&#182;</a></h1><ul>
-<li>The Twitter dataset contains 37149 records, where 15830 records are positive text, 13042 are neutral text, and 8277 are negative (unbalanced).</li>
+<li>The Twitter dataset contains 37149 records, where 15830 records are positive text, 13042 are neutral text, and 8277 are negative. Therefore, also this database is considered as unbalanced.</li>
 <li>In the attribute category of our database, the value 1 means the text is positive, 0 means it is neutral and -1 means it is positive.</li>
 </ul>
 
